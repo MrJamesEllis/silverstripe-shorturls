@@ -51,7 +51,7 @@ abstract class Base {
 			}
 			curl_setopt($curl, CURLOPT_USERAGENT, $this->user_agent);
 			curl_setopt_array($curl, array(
-				CURLOPT_SSL_VERIFYHOST => TRUE,
+				CURLOPT_SSL_VERIFYHOST => 2,
 				CURLOPT_SSL_VERIFYPEER => TRUE
 			));
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -66,8 +66,8 @@ abstract class Base {
 						break;
 			}
 			curl_setopt($curl, CURLOPT_URL, $url);
-			$response = curl_exec($ch);
-			curl_close($ch);
+			$response = curl_exec($curl);
+			curl_close($curl);
 			return $response;
 		} catch (Exception $e) {
 		}
