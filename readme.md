@@ -2,6 +2,8 @@
 A Silverstripe module for shortening and expandening URLs.
 Currently plugs into Goo.gl
 
+Probably highly likely to change at this point in time.
+
 ## Requirements
 Per composer.json
 
