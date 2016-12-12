@@ -12,7 +12,7 @@ abstract class Base {
 	abstract protected function api_key();
 
 	final public static function provider($name) {
-		$class = "Codem\ShortURL\{$name}";
+		$class = "Codem\ShortURL\\" . $name;
 		if(class_exists($class)) {
 			return new $class;
 		}

@@ -7,7 +7,7 @@ class Googl extends Base {
 	protected $endpoint = "https://www.googleapis.com/urlshortener/v1/url";
 
 	protected function api_key() {
-		return \Config::inst()->get('Codem\ShortURL\Googl', 'api_key');
+		return \Config::inst()->get('Codem\ShortURL\Googl', 'google_api_key');
 	}
 
 	public function shorten($long_url) {
@@ -16,7 +16,8 @@ class Googl extends Base {
 		);
 		$post_fields = array('longUrl' => $long_url);
 		$post_body = json_encode($post_fields);
-		$response = $this->doRequest($this->endpoint, "POST", $headers, $post_body);
+		$url = $this->endpoint . "?key=" . $this->api_key();
+		$response = $this->doRequest($url, "POST", $headers, $post_body);
 		if($response) {
 			$decoded = json_decode($response, FALSE);
 			if(empty($decoded->id)) {
