@@ -1,6 +1,6 @@
 <?php
 namespace Codem\ShortURL;
-class ShortURLException extends Exception {}
+class ShortURLException extends \Exception {}
 abstract class Base {
 
 	protected $endpoint = "";
@@ -69,7 +69,7 @@ abstract class Base {
 			$response = curl_exec($curl);
 			curl_close($curl);
 			return $response;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 		}
 		return FALSE;
 	}
