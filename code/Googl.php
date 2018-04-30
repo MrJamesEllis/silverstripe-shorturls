@@ -20,7 +20,7 @@ class Googl extends Base {
 		$url = $endpoint . "?key=" . $this->api_key();
 		$response = $this->doRequest($url, "POST", $headers, $post_body);
 		if($response) {
-			$decoded = json_decode($response, FALSE);
+			$decoded = json_decode($response, false);
 			if(empty($decoded->id)) {
 				throw new ShortURLException("No short url returned from {$endpoint}");
 			}
@@ -37,7 +37,7 @@ class Googl extends Base {
 		$url = $endpoint . "?shortUrl=" . urlencode($short_url);
 		$response = $this->doRequest($url, "GET");
 		if($response) {
-			$decoded = json_decode($response, FALSE);
+			$decoded = json_decode($response, false);
 			switch($decoded->status) {
 				case "REMOVED":
 				case "MALWARE";
@@ -62,7 +62,7 @@ class Googl extends Base {
 		$response = $this->doRequest($url, "GET");
 		if($response) {
 			// for now, just return analytics struct
-			return json_decode($response, FALSE);
+			return json_decode($response, false);
 		}
 		throw new ShortURLException("Failed to get analytics for {$short_url}");
 	}

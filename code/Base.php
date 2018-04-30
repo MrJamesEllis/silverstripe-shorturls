@@ -24,12 +24,12 @@ abstract class Base extends \Object {
 			$parts = parse_url($proxy);
 			return array(
 				'host' => $parts['scheme'] . "://" . $parts['host'],
-				'port' => isset($parts['port']) ? (int)$parts['port'] : FALSE,
+				'port' => isset($parts['port']) ? (int)$parts['port'] : false,
 				'user' => (isset($parts['user']) ? $parts['user'] : ""),
 				'pass' => (isset($parts['pass']) ? $parts['pass'] : ""),
 			);
 		}
-		return FALSE;
+		return false;
 	}
 
 	/*
@@ -51,17 +51,17 @@ abstract class Base extends \Object {
 			curl_setopt($curl, CURLOPT_USERAGENT, $this->config()->get('user_agent'));
 			curl_setopt_array($curl, array(
 				CURLOPT_SSL_VERIFYHOST => 2,
-				CURLOPT_SSL_VERIFYPEER => TRUE
+				CURLOPT_SSL_VERIFYPEER => true
 			));
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 			switch($method) {
 					case "POST":
-						curl_setopt($curl, CURLOPT_POST, TRUE);
+						curl_setopt($curl, CURLOPT_POST, true);
 						curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
 						break;
 					case "GET":
-						curl_setopt($curl, CURLOPT_HTTPGET, TRUE);
+						curl_setopt($curl, CURLOPT_HTTPGET, true);
 						break;
 			}
 			curl_setopt($curl, CURLOPT_URL, $url);
@@ -70,7 +70,7 @@ abstract class Base extends \Object {
 			return $response;
 		} catch (\Exception $e) {
 		}
-		return FALSE;
+		return false;
 	}
 
 }
