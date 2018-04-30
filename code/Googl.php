@@ -36,8 +36,13 @@ class Googl extends Base {
 		$endpoint = $this->config()->get('endpoint');
 		$url = $endpoint . "?shortUrl=" . urlencode($short_url);
 		$response = $this->doRequest($url, "GET");
-		if($response) {
-			$decoded = json_decode($response, false);
+		if(!$response) {
+			throw new ShortURLException("Unhandled status {$decoded->status}");
+		}
+		$decoded = json_decode($response, false);
+		if(!empty($decoded->error)) {
+			throw new ShortURLException( $decoded->error->message . "({$decoded->error->code})" );
+		} else {
 			switch($decoded->status) {
 				case "REMOVED":
 				case "MALWARE";
