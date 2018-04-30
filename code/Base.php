@@ -1,10 +1,10 @@
 <?php
 namespace Codem\ShortURL;
 class ShortURLException extends \Exception {}
-abstract class Base {
+abstract class Base extends \Object {
 
-	protected $endpoint = "";
-	protected $user_agent = "CodemShortURL/0.1";
+	private static $endpoint = "";
+	private static $user_agent = "CodemShortURL/0.1";
 
 	abstract public function shorten($long_url);
 	abstract public function expand($short_url);
@@ -49,7 +49,7 @@ abstract class Base {
 					curl_setopt($curl, CURLOPT_PROXYUSERPWD, $proxy['user'] . ":" . $proxy['pass']);
 				}
 			}
-			curl_setopt($curl, CURLOPT_USERAGENT, $this->user_agent);
+			curl_setopt($curl, CURLOPT_USERAGENT, $this->config()->get('user_agent'));
 			curl_setopt_array($curl, array(
 				CURLOPT_SSL_VERIFYHOST => 2,
 				CURLOPT_SSL_VERIFYPEER => TRUE

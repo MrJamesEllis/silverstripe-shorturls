@@ -4,35 +4,37 @@ use Codem\ShortURL\Base as Base;
 use Codem\ShortURL\ShortURLException as ShortURLException;
 class Googl extends Base {
 
-	protected $endpoint = "https://www.googleapis.com/urlshortener/v1/url";
+	private static $endpoint = "https://www.googleapis.com/urlshortener/v1/url";
 
 	protected function api_key() {
 		return \Config::inst()->get('Codem\ShortURL\Googl', 'google_api_key');
 	}
 
 	public function shorten($long_url) {
+		$endpoint = $this->config()->get('endpoint');
 		$headers = array(
 			"Content-Type: application/json",
 		);
 		$post_fields = array('longUrl' => $long_url);
 		$post_body = json_encode($post_fields);
-		$url = $this->endpoint . "?key=" . $this->api_key();
+		$url = $endpoint . "?key=" . $this->api_key();
 		$response = $this->doRequest($url, "POST", $headers, $post_body);
 		if($response) {
 			$decoded = json_decode($response, FALSE);
 			if(empty($decoded->id)) {
-				throw new ShortURLException("No short url returned from {$this->endpoint}");
+				throw new ShortURLException("No short url returned from {$endpoint}");
 			}
 			return $decoded->id;
 		}
-		throw new ShortURLException("Empty response returned from {$this->endpoint}");
+		throw new ShortURLException("Empty response returned from {$endpoint}");
 	}
 
 	public function expand($short_url) {
 		if(empty($short_url)) {
 			throw new ShortURLException("Provide a valid short_url as an argument");
 		}
-		$url = $this->endpoint . "?shortUrl=" . urlencode($short_url);
+		$endpoint = $this->config()->get('endpoint');
+		$url = $endpoint . "?shortUrl=" . urlencode($short_url);
 		$response = $this->doRequest($url, "GET");
 		if($response) {
 			$decoded = json_decode($response, FALSE);
@@ -55,7 +57,8 @@ class Googl extends Base {
 		if(empty($short_url)) {
 			throw new ShortURLException("Provide a valid short_url as an argument");
 		}
-		$url = $this->endpoint . "?project=FULL&shortUrl=" . urlencode($short_url);
+		$endpoint = $this->config()->get('endpoint');
+		$url = $endpoint . "?project=FULL&shortUrl=" . urlencode($short_url);
 		$response = $this->doRequest($url, "GET");
 		if($response) {
 			// for now, just return analytics struct

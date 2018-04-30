@@ -1,0 +1,10 @@
+---
+Name: shorturls-config
+After:
+  - 'framework/*'
+---
+Codem\ShortURL\Base:
+    user_agent: "CodemShortURL/0.1"
+Codem\ShortURL\Googl:
+    endpoint: "https://www.googleapis.com/urlshortener/v1/url"
+    
