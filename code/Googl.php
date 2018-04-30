@@ -34,7 +34,8 @@ class Googl extends Base {
 			throw new ShortURLException("Provide a valid short_url as an argument");
 		}
 		$endpoint = $this->config()->get('endpoint');
-		$url = $endpoint . "?shortUrl=" . urlencode($short_url);
+		$key = "key=" . $this->api_key();
+		$url = $endpoint . "?{$key}&shortUrl=" . urlencode($short_url);
 		$response = $this->doRequest($url, "GET");
 		if(!$response) {
 			throw new ShortURLException("Unhandled status {$decoded->status}");
