@@ -2,6 +2,10 @@
 namespace Codem\ShortURL;
 use Codem\ShortURL\Base as Base;
 use Codem\ShortURL\ShortURLException as ShortURLException;
+/**
+ * Googl provider for ShortURLs
+ * @note From Mar 30 2018, API support for Googl short URLs is being turned down - https://developers.google.com/url-shortener/
+ */
 class Googl extends Base {
 
 	private static $endpoint = "https://www.googleapis.com/urlshortener/v1/url";
