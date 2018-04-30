@@ -1,6 +1,5 @@
 <?php
 namespace Codem\ShortURL;
-class ShortURLException extends \Exception {}
 abstract class Base extends \Object {
 
 	private static $endpoint = "";
